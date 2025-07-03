@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stars Support Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f8f9fa; }
+    h2 { margin-top: 40px; }
+    #chart-container { width: 80%; max-width: 600px; margin: auto; }
+    #scroll-container {
+      margin-top: 50px;
+      height: 30px;
+      overflow: hidden;
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      padding: 10px;
+      font-weight: bold;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📊 Today’s Support Ranking</h2>
+  <div id="chart-container">
+    <canvas id="supportChart"></canvas>
+  </div>
+
+  <h2>📦 Shipping Updates</h2>
+  <div id="scroll-container">
+    <div id="message">Loading...</div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('supportChart').getContext('2d');
+    const supportData = {
+      labels: ['@StarFairy', '@LunaMoon', '@GalaxyFan', '@NovaSpark'],
+      datasets: [{
+        label: "Today's Support Count",
+        data: [120, 95, 80, 60],
+        backgroundColor: 'rgba(54, 162, 235, 0.6)'
+      }]
+    };
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: supportData,
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    const messages = [
+      '@StarFairy sent 2 lightsticks!',
+      '@LunaMoon dispatched 5 banners!',
+      '@GalaxyFan shipped 3 posters!',
+      '@NovaSpark sent 10 photo cards!'
+    ];
+    let index = 0;
+    const messageDiv = document.getElementById('message');
+    setInterval(() => {
+      messageDiv.textContent = messages[index];
+      index = (index + 1) % messages.length;
+    }, 3000);
+  </script>
+
+</body>
+</html>
